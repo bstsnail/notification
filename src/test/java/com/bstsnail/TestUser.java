@@ -1,8 +1,9 @@
 package com.bstsnail;
 
+import com.bstsnail.model.Event;
 import com.bstsnail.model.User;
+import com.bstsnail.service.EventService;
 import com.bstsnail.service.UserService;
-import com.bstsnail.util.LunarCalendar;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 /**
  * Created with Intellij IDEA.
@@ -27,17 +25,24 @@ public class TestUser {
     @Autowired
     UserService userService;
 
+    @Autowired
+    EventService eventService;
+
     @Before
     public void setup() {
         List<User> users = userService.getAllUser();
         for (User u : users) {
             System.out.println("Deleting user - " + u);
-            userService.delete(u.getEmail());
+            //userService.delete(u.getEmail());
         }
     }
 
     @Test
     public void test() throws Exception {
+        System.out.println(userService.getUser(1));
+        List<Event> events = eventService.getEvents(1);
+        System.out.println(events.size());
+        /*
         long month = 30 * 24 * 60 * 60 * 1000L;
 
         long date = System.currentTimeMillis() + month;
@@ -51,5 +56,6 @@ public class TestUser {
         System.out.println(c.get(Calendar.DAY_OF_MONTH));
         System.out.println(TimeZone.getDefault());
         //Thread.sleep(100000);
+        */
     }
 }

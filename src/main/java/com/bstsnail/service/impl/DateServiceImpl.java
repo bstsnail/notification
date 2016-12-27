@@ -41,7 +41,7 @@ public class DateServiceImpl implements DateService {
         long sendBeforeEvent = e.getSendBeforeEvent();
         logger.info(String.format("Check if this event can be send out, current=%d, date=%d, sendBeforeEvent=%d",
                     System.currentTimeMillis(), date, sendBeforeEvent));
-        return System.currentTimeMillis() <= (date - sendBeforeEvent*60*1000L);
+        return System.currentTimeMillis() >= (date - sendBeforeEvent*60*1000L);
     }
 
     private boolean isTheSameDay(long timeStamp, TimeZone timeZone) {

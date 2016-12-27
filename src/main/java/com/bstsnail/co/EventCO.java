@@ -70,13 +70,14 @@ public class EventCO {
 
             for (User u : users) {
                 List<Event> events = eventService.getEvents(u.getId());
-
                 for (Event e : events) {
+                    logger.info("Check if this event can be send - " + e);
                     dateService.shouldBeDeliver(u, e);
                     logger.info("This event can be deliver", "event=" + e);
                     queue.addEvent(e);
                 }
             }
+            logger.info("Finish scheduling the events - " + users.size());
         });
     }
 }

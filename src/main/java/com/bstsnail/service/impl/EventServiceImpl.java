@@ -69,7 +69,7 @@ public class EventServiceImpl implements EventService {
         Event e = new Event();
         e.setId(rs.getInt("id"));
         e.setUserId(rs.getInt("user_id"));
-        e.setDate(rs.getInt("date"));
+        e.setDate(rs.getLong("date"));
         e.setLunar(rs.getBoolean("isLunar"));
         e.setDescription(rs.getString("description"));
         e.setEmails(rs.getString("emails"));

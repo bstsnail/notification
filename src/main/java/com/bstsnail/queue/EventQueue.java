@@ -23,4 +23,8 @@ public class EventQueue {
     public Event pollEvent() throws InterruptedException {
         return queue.take();
     }
+
+    public int size() {
+        return queue.size();
+    }
 }

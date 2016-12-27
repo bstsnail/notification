@@ -1,6 +1,5 @@
 package com.bstsnail.scheduler;
 
-import com.bstsnail.co.EventCO;
 import com.bstsnail.model.Event;
 import com.bstsnail.queue.EventQueue;
 import com.bstsnail.service.DateService;
@@ -30,23 +29,22 @@ public class SendScheduler {
     @Autowired
     private DateService dateService;
 
-    @Autowired
-    private EventCO eventCO;
-
     @PostConstruct
     public void start() {
         logger.info("Start up send scheduler");
-        eventCO.scheduleEvent();
 
         executor.scheduleWithFixedDelay(() -> {
             logger.info("Start to send the emails");
             try {
-                Event e = queue.pollEvent();
-                if (dateService.shouldBeSend(e)) {
-                    logger.info("This event can be send out, event=" + e);
-                }
-                else {
-                    logger.info("This event still need to wait, event=" + e);
+
+                while (queue.size() > 0) {
+                    Event e = queue.pollEvent();
+                    if (dateService.shouldBeSend(e)) {
+                        logger.info("This event can be send out, event=" + e);
+                    }
+                    else {
+                        logger.info("This event still need to wait, event=" + e);
+                    }
                 }
             }
             catch (InterruptedException e1) {
